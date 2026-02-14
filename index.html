@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Birthday Experience 🎂</title>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+
+  <!-- ================= LANDING ================= -->
+  <section id="landing" class="screen active">
+    <h1>🎉 Happy Birthday 🎉</h1>
+    <p>This is not just a wish. It’s a journey.</p>
+    <button id="startBtn">Start the Experience</button>
+  </section>
+
+  <!-- ================= TIMELINE ================= -->
+  <section id="timeline" class="screen hidden">
+    <h2>Your Story So Far</h2>
+
+    <div id="timeline-container">
+      <!-- Timeline cards injected via JS -->
+    </div>
+
+    <button id="toCakeBtn" disabled>Continue</button>
+  </section>
+
+  <!-- ================= CAKE BUILDER ================= -->
+  <section id="cake" class="screen hidden">
+    <h2>Build Your Birthday Cake 🎂</h2>
+
+    <div class="cake-options">
+      <div class="option-group">
+        <h3>Choose Flavor</h3>
+        <button data-flavor="chocolate">Chocolate</button>
+        <button data-flavor="vanilla">Vanilla</button>
+        <button data-flavor="red-velvet">Red Velvet</button>
+      </div>
+
+      <div class="option-group">
+        <h3>Choose Topping</h3>
+        <button data-topping="sprinkles">Sprinkles</button>
+        <button data-topping="fruit">Fruits</button>
+        <button data-topping="nuts">Nuts</button>
+      </div>
+    </div>
+
+    <button id="finishCakeBtn" disabled>Finish Cake</button>
+  </section>
+
+  <!-- ================= FINAL MESSAGE ================= -->
+  <section id="final" class="screen hidden">
+    <h2>One Last Thing 💌</h2>
+    <p id="finalMessage"></p>
+    <button id="restartBtn">Replay</button>
+  </section>
+
+  <!-- ================= SCRIPTS ================= -->
+  <script src="js/data.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/timeline.js"></script>
+  <script src="js/cake.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
