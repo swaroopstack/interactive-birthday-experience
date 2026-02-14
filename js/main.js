@@ -21,6 +21,11 @@ const stackEndMessage = document.getElementById("stackEndMessage");
 const cakeButtons = document.getElementById("cakeButtons");
 const cakeResponse = document.getElementById("cakeResponse");
 
+// Builder Elements
+const cakeBuilder = document.getElementById("cakeBuilder");
+const builderChoice = document.getElementById("builderChoice");
+const builderOptions = document.querySelectorAll(".builderOption");
+
 // Final
 const finalMessage = document.getElementById("finalMessage");
 
@@ -67,8 +72,7 @@ function addDragLogic(card) {
 
   const threshold = 100;
 
-  // MOUSE EVENTS
-
+  // Mouse
   card.addEventListener("mousedown", (e) => {
     isDragging = true;
     startX = e.clientX;
@@ -90,12 +94,10 @@ function addDragLogic(card) {
     card.style.transition = "transform 0.3s ease";
 
     handleRelease(card, currentX, threshold);
-
     currentX = 0;
   });
 
-  // TOUCH EVENTS
-
+  // Touch
   card.addEventListener("touchstart", (e) => {
     isDragging = true;
     startX = e.touches[0].clientX;
@@ -115,7 +117,6 @@ function addDragLogic(card) {
     card.style.transition = "transform 0.3s ease";
 
     handleRelease(card, currentX, threshold);
-
     currentX = 0;
   });
 }
@@ -143,7 +144,8 @@ function checkStackEnd() {
 
 createCards();
 
-// Continue to Cake
+// ================= MOVE TO CAKE =================
+
 toCakeBtn.addEventListener("click", () => {
   showScreen(cake);
 
@@ -154,16 +156,33 @@ toCakeBtn.addEventListener("click", () => {
 
 // ================= CAKE BRANCHING =================
 
+// If they like your cake
 likeCake.addEventListener("click", () => {
   showFinal();
 });
 
+// If they don't like it
 notSureCake.addEventListener("click", () => {
   cakeResponse.textContent =
     "That is fine. I am not a professional. Maybe you can help me make one.";
-  finishBtn.classList.remove("hidden");
+
+  cakeBuilder.classList.remove("hidden");
 });
 
+// ================= BUILDER MODE =================
+
+builderOptions.forEach(option => {
+  option.addEventListener("click", () => {
+    const flavor = option.dataset.type;
+
+    builderChoice.textContent =
+      "Good choice. A " + flavor + " cake it is.";
+
+    finishBtn.classList.remove("hidden");
+  });
+});
+
+// Continue after building
 finishBtn.addEventListener("click", () => {
   showFinal();
 });

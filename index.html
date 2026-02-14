@@ -1,53 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Birthday Experience</title>
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Experience</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
-  <!-- Landing -->
-  <section id="landing" class="screen">
-    <h1>Happy Birthday</h1>
-    <button id="startBtn">Start</button>
-  </section>
+    <!-- Landing -->
+    <section id="landing" class="screen">
+        <h1>Happy Birthday</h1>
+        <button id="startBtn">Start</button>
+    </section>
 
-  <!-- Memory Section -->
-  <section id="memory" class="screen hidden">
-    <h2>Little Things About You</h2>
-    <div id="cardStack"></div>
-    <p id="stackEndMessage" class="hidden">I have something for you.</p>
-    <button id="toCakeBtn" class="hidden">Continue</button>
-  </section>
+    <!-- Memory Section -->
+    <section id="memory" class="screen hidden">
+        <h2>Little Things About You</h2>
+        <div id="cardStack"></div>
+        <p id="stackEndMessage" class="hidden">I have something for you.</p>
+        <button id="toCakeBtn" class="hidden">Continue</button>
+    </section>
 
 
-  <!-- Cake Section -->
-  <section id="cake" class="screen hidden">
-    <h2>I Made Something For You</h2>
-    <div id="cakeBox">
-      <div class="fakeCake">[ Your Cake Design Will Go Here ]</div>
-    </div>
+    <!-- Cake Section -->
+    <section id="cake" class="screen hidden">
+        <h2>I Made Something For You</h2>
 
-    <div id="cakeButtons" class="hidden">
-      <button id="likeCake">I Like It</button>
-      <button id="notSureCake">Not Sure</button>
-    </div>
+        <div id="cakeDisplay">
+            <div class="fakeCake">[ Your Cake Design Will Go Here ]</div>
+        </div>
 
-    <p id="cakeResponse"></p>
+        <div id="cakeButtons" class="hidden">
+            <button id="likeCake">I Like It</button>
+            <button id="notSureCake">Not Sure</button>
+        </div>
 
-    <button id="finishBtn" class="hidden">Continue</button>
-  </section>
+        <p id="cakeResponse"></p>
 
-  <!-- Final Letter -->
-  <section id="final" class="screen hidden">
-    <h2>A Letter For You</h2>
-    <p id="finalMessage"></p>
-    <button id="restartBtn">Replay</button>
-  </section>
+        <!-- Builder Mode -->
+        <div id="cakeBuilder" class="hidden">
+            <h3>Help Me Make One</h3>
 
-  <script src="js/data.js"></script>
-  <script src="js/main.js"></script>
+            <button class="builderOption" data-type="Chocolate">Chocolate</button>
+            <button class="builderOption" data-type="Vanilla">Vanilla</button>
+            <button class="builderOption" data-type="Strawberry">Strawberry</button>
+
+            <p id="builderChoice"></p>
+
+            <button id="finishBtn" class="hidden">Continue</button>
+        </div>
+    </section>
+
+    <!-- Final Letter -->
+    <section id="final" class="screen hidden">
+        <h2>A Letter For You</h2>
+        <p id="finalMessage"></p>
+        <button id="restartBtn">Replay</button>
+    </section>
+
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>
