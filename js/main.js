@@ -1,42 +1,93 @@
-// Select screens
-const landingScreen = document.getElementById("landing");
-const timelineScreen = document.getElementById("timeline");
-const cakeScreen = document.getElementById("cake");
+// Screen references
+const landing = document.getElementById("landing");
+const memory = document.getElementById("memory");
+const cake = document.getElementById("cake");
 const finalScreen = document.getElementById("final");
 
-// Select buttons
+// Buttons
 const startBtn = document.getElementById("startBtn");
 const toCakeBtn = document.getElementById("toCakeBtn");
-const finishCakeBtn = document.getElementById("finishCakeBtn");
+const likeCake = document.getElementById("likeCake");
+const notSureCake = document.getElementById("notSureCake");
+const finishBtn = document.getElementById("finishBtn");
 const restartBtn = document.getElementById("restartBtn");
 
-// Utility function to switch screens
-function showScreen(screenToShow) {
-  const screens = [landingScreen, timelineScreen, cakeScreen, finalScreen];
+// Other elements
+const memoryContainer = document.getElementById("memoryContainer");
+const cakeButtons = document.getElementById("cakeButtons");
+const cakeResponse = document.getElementById("cakeResponse");
+const finalMessage = document.getElementById("finalMessage");
 
-  screens.forEach(screen => {
-    screen.classList.add("hidden");
-  });
+let revealedCount = 0;
 
-  screenToShow.classList.remove("hidden");
+// Utility function
+function showScreen(screen) {
+  landing.classList.add("hidden");
+  memory.classList.add("hidden");
+  cake.classList.add("hidden");
+  finalScreen.classList.add("hidden");
+
+  screen.classList.remove("hidden");
 }
 
-// Landing → Timeline
+// Start button
 startBtn.addEventListener("click", () => {
-  showScreen(timelineScreen);
+  showScreen(memory);
 });
 
-// Timeline → Cake
+// Render memory cards
+memoryData.forEach(item => {
+  const card = document.createElement("div");
+  card.classList.add("memoryCard");
+
+  card.innerHTML = `
+    <h3>${item.title}</h3>
+    <p class="hidden">${item.text}</p>
+  `;
+
+  card.addEventListener("click", () => {
+    const paragraph = card.querySelector("p");
+
+    if (paragraph.classList.contains("hidden")) {
+      paragraph.classList.remove("hidden");
+      revealedCount++;
+    }
+
+    if (revealedCount === memoryData.length) {
+      toCakeBtn.disabled = false;
+    }
+  });
+
+  memoryContainer.appendChild(card);
+});
+
+// Continue to cake
 toCakeBtn.addEventListener("click", () => {
-  showScreen(cakeScreen);
+  showScreen(cake);
+
+  setTimeout(() => {
+    cakeButtons.classList.remove("hidden");
+  }, 1500);
 });
 
-// Cake → Final
-finishCakeBtn.addEventListener("click", () => {
+// Cake responses
+likeCake.addEventListener("click", () => {
+  cakeResponse.textContent = "That makes me happy.";
+  finishBtn.classList.remove("hidden");
+});
+
+notSureCake.addEventListener("click", () => {
+  cakeResponse.textContent = "I tried my best. Now please say you like it.";
+  finishBtn.classList.remove("hidden");
+});
+
+// Final screen
+finishBtn.addEventListener("click", () => {
   showScreen(finalScreen);
+  finalMessage.textContent = finalLetter;
 });
 
-// Restart → Landing
+// Restart
 restartBtn.addEventListener("click", () => {
-  showScreen(landingScreen);
+  location.reload();
 });
