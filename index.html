@@ -30,72 +30,16 @@
 
         <div class="cake-scene">
 
-            <!-- Background -->
-            <div class="room-bg"></div>
             <div class="dim-overlay"></div>
 
-            <!-- Cake -->
-            <div class="cake-container">
+            <div class="center-text hidden" id="centerText">
+                I have something for you.
+            </div>
 
+            <div class="cake-container hidden" id="cakeContainer">
                 <img src="assets/images/cake.png" class="cake-image" alt="Birthday Cake" />
-
-                <!-- Candle 1 -->
-                <div class="candle candle-1">
-                    <div class="wick"></div>
-                    <div class="glow"></div>
-                    <svg class="flame" viewBox="0 0 30 60">
-                        <defs>
-                            <radialGradient id="flameGradient1">
-                                <stop offset="0%" stop-color="#fff8d6" />
-                                <stop offset="60%" stop-color="#ffb347" />
-                                <stop offset="100%" stop-color="#ff6f00" />
-                            </radialGradient>
-                        </defs>
-                        <path d="M15 0 C5 20, 5 35, 15 60 C25 35, 25 20, 15 0 Z" fill="url(#flameGradient1)" />
-                    </svg>
-                </div>
-
-                <!-- Candle 2 -->
-                <div class="candle candle-2">
-                    <div class="wick"></div>
-                    <div class="glow"></div>
-                    <svg class="flame" viewBox="0 0 30 60">
-                        <defs>
-                            <radialGradient id="flameGradient2">
-                                <stop offset="0%" stop-color="#fff8d6" />
-                                <stop offset="60%" stop-color="#ffb347" />
-                                <stop offset="100%" stop-color="#ff6f00" />
-                            </radialGradient>
-                        </defs>
-                        <path d="M15 0 C5 20, 5 35, 15 60 C25 35, 25 20, 15 0 Z" fill="url(#flameGradient2)" />
-                    </svg>
-                </div>
-
-                <!-- Candle 3 -->
-                <div class="candle candle-3">
-                    <div class="wick"></div>
-                    <div class="glow"></div>
-                    <svg class="flame" viewBox="0 0 30 60">
-                        <defs>
-                            <radialGradient id="flameGradient3">
-                                <stop offset="0%" stop-color="#fff8d6" />
-                                <stop offset="60%" stop-color="#ffb347" />
-                                <stop offset="100%" stop-color="#ff6f00" />
-                            </radialGradient>
-                        </defs>
-                        <path d="M15 0 C5 20, 5 35, 15 60 C25 35, 25 20, 15 0 Z" fill="url(#flameGradient3)" />
-                    </svg>
-                </div>
-
             </div>
 
-            <!-- Controls -->
-            <div class="cake-controls">
-                <button id="startCake">Start</button>
-                <button id="blowCandles" class="hidden">Blow Candles</button>
-            </div>
-
-            <!-- Animated Letter Banner -->
             <div class="birthday-banner hidden" id="birthdayBanner">
                 <span class="letter">H</span>
                 <span class="letter">A</span>
