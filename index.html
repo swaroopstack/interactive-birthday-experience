@@ -2,35 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Birthday Experience</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Happy Birthday</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600&family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
-
 <body>
+    <section id="landing-stage" class="stage">
+        <h1>Happy Birthday</h1>
+        <button id="start-btn">Start</button>
+    </section>
 
-<!-- LANDING -->
-<section id="landing" class="screen">
-    <h1>Happy Birthday</h1>
-    <button id="startBtn">Start</button>
-</section>
+    <section id="memory-stage" class="stage hidden">
+        <h2 id="memory-title">Little Things About You</h2>
+        <div id="card-stack"></div>
+    </section>
 
-<!-- MEMORY -->
-<section id="memory" class="screen hidden">
-    <h2 id="memoryTitle">Little Things About You</h2>
-    <div id="cardStack"></div>
-</section>
+    <div id="dim-overlay"></div>
+    <div id="transition-text" class="hidden">I have something for you.</div>
 
-<!-- FULL SCREEN REVEAL -->
-<div id="revealLayer" class="hidden">
-    <div class="overlay"></div>
-    <div id="revealContent"></div>
-</div>
+    <section id="reveal-stage" class="stage hidden">
+        <img src="assets/images/cake.png" id="cake" alt="Birthday Cake">
+        
+        <div id="banner"></div>
+        
+        <div id="envelope-container" class="hidden">
+            <img src="assets/images/envelope.png" id="envelope" alt="Envelope">
+            <p id="open-text">Open me</p>
+        </div>
+        
+        <img src="assets/images/letter.png" id="letter" class="hidden" alt="Letter">
+    </section>
 
-<script src="js/data.js"></script>
-<script src="js/main.js"></script>
-
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

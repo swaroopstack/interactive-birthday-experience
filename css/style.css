@@ -1,206 +1,268 @@
-/* BASE */
-
-html, body {
-    margin: 0;
-    overflow-x: hidden;
+:root {
+    --bg-color: #f4ece4;
+    --text-color: #4a3b32;
+    --fade-dur: 0.8s;
+    --dim-dur: 1s;
 }
 
 body {
-    font-family: Georgia, serif;
-    background: #f3eee7 url("../assets/images/paper.png");
+    margin: 0;
+    padding: 0;
+    font-family: 'Lora', serif;
+    background-color: var(--bg-color);
+    background-image: url('../assets/images/paper.png');
     background-size: cover;
-    background-attachment: fixed;
-    text-align: center;
+    background-position: center;
+    overflow: hidden; /* No scroll allowed */
+    height: 100vh;
+    height: 100dvh; /* Mobile viewport fix */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* SCREEN */
-
-.screen {
-    min-height: 100vh;
+/* Base Stage Utilities */
+.stage {
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    transition: opacity var(--fade-dur) ease;
 }
 
 .hidden {
-    display: none;
-}
-
-/* LANDING */
-
-#landing {
-    transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-#landing.fade-out {
     opacity: 0;
-    transform: translateY(-20px);
+    pointer-events: none;
 }
 
-/* MEMORY */
-
-#memory {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+/* Stage 1: Landing */
+#landing-stage h1 {
+    font-weight: 400;
+    font-style: italic;
+    font-size: 2.2rem;
+    color: var(--text-color);
+    letter-spacing: 1px;
 }
 
-#memory.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* CARDS */
-
-#cardStack {
-    position: relative;
-    width: 320px;
-    height: 420px;
-}
-
-.memoryCard {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #fffdf9;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    padding: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: grab;
-    transition: transform 0.3s ease;
-}
-
-/* BUTTON */
-
-button {
-    padding: 10px 22px;
-    border-radius: 25px;
-    border: none;
-    background: #8b5e3c;
-    color: white;
-    font-family: 'Pacifico', cursive;
+#start-btn {
+    margin-top: 2.5rem;
+    padding: 12px 36px;
+    border: 1px solid var(--text-color);
+    background: transparent;
+    color: var(--text-color);
+    font-family: 'Lora', serif;
+    font-size: 1rem;
     cursor: pointer;
+    transition: all 0.4s ease;
+    border-radius: 4px;
 }
 
-/* TITLE FADE */
+#start-btn:hover {
+    background: var(--text-color);
+    color: var(--bg-color);
+}
 
-.fade-out-text {
-    opacity: 0;
+/* Stage 2: Memory Cards */
+#memory-title {
+    font-size: 1.6rem;
+    color: var(--text-color);
+    margin-bottom: 3rem;
+    font-weight: 400;
     transition: opacity 0.6s ease;
 }
 
-/* REVEAL LAYER */
+#card-stack {
+    width: 320px;
+    height: 420px;
+    position: relative;
+}
 
-#revealLayer {
-    position: fixed;
-    inset: 0;
-    z-index: 999;
+.card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: #fffdf9;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 30px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #5a4b42;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    cursor: grab;
+    user-select: none;
+    transform-origin: bottom center;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
 }
 
-.overlay {
-    position: absolute;
+.card.dragging {
+    cursor: grabbing;
+    transition: none; /* Instant follow when dragged */
+}
+
+/* Transition & Dim */
+#dim-overlay {
+    position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.75);
+    background: rgba(0,0,0,0.8);
     opacity: 0;
-    transition: opacity 1s ease;
+    pointer-events: none;
+    transition: opacity var(--dim-dur) ease;
+    z-index: 10;
 }
 
-.overlay.show {
+#dim-overlay.active {
     opacity: 1;
 }
 
-#revealContent {
-    position: relative;
-    z-index: 2;
-}
-
-/* REVEAL TEXT */
-
-.reveal-text {
+#transition-text {
+    position: absolute;
     font-family: 'Pacifico', cursive;
     font-size: 2.5rem;
     color: white;
+    text-shadow: 0 0 15px rgba(255,255,255,0.4);
+    z-index: 15;
+    transition: opacity var(--fade-dur) ease;
+    opacity: 0;
+    pointer-events: none;
+    text-align: center;
+}
+
+/* Stage 3: Reveal Elements */
+#reveal-stage {
+    z-index: 20;
+}
+
+#cake {
+    width: 260px;
+    max-width: 70%;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.5));
+    transform: scale(0.95);
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+#cake.show {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+#banner {
+    display: flex;
+    gap: 6px;
+    margin-top: 2rem;
+    position: absolute;
+    top: 5vh;
+}
+
+.banner-letter {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    color: #fff;
+    font-size: 1.8rem;
+    transform: translateY(-200px);
+    opacity: 0;
+    position: relative;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Hanging string illusion */
+.banner-letter::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    width: 1px;
+    height: 200px;
+    background: rgba(255,255,255,0.2);
+}
+
+@keyframes dropBounce {
+    0% { transform: translateY(-200px); opacity: 0; }
+    60% { transform: translateY(15px); opacity: 1; }
+    80% { transform: translateY(-5px); }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.banner-letter.drop {
+    animation: dropBounce 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+#envelope-container {
+    margin-top: 3rem;
+    text-align: center;
     opacity: 0;
     transition: opacity 0.8s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 15vh;
 }
 
-.reveal-text.show {
+#envelope-container.show {
     opacity: 1;
+    pointer-events: auto;
 }
 
-/* CAKE */
-
-.cake-img {
-    width: 300px;
-    opacity: 0;
-    transform: scale(0.9);
-    animation: cakeFade 1s ease forwards;
+#envelope {
+    width: 160px;
+    animation: subtle-shake 3s infinite ease-in-out;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
 }
 
-@keyframes cakeFade {
-    to {
-        opacity: 1;
-        transform: scale(1.05);
-    }
+@keyframes subtle-shake {
+    0%, 100% { transform: rotate(-1.5deg); }
+    50% { transform: rotate(1.5deg); }
 }
 
-/* BANNER */
-
-.banner {
+#open-text {
     font-family: 'Pacifico', cursive;
-    font-size: 2rem;
-    color: white;
-    margin-top: 20px;
+    color: #fff;
+    font-size: 1.2rem;
+    margin-top: 12px;
+    opacity: 0.8;
+}
+
+#letter {
+    position: absolute;
+    max-width: 90%;
+    width: 380px;
     opacity: 0;
-    transform: translateY(-40px);
-    animation: bannerDrop 0.8s ease forwards;
-    animation-delay: 0.5s;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
 }
 
-@keyframes bannerDrop {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ENVELOPE */
-
-.envelope {
-    width: 200px;
-    margin-top: 40px;
-    opacity: 0;
-    animation: shake 1.5s infinite;
-    transition: opacity 0.8s ease;
-}
-
-.envelope.show {
+#letter.show {
     opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+    z-index: 30;
 }
 
-@keyframes shake {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(2deg); }
-    50% { transform: rotate(-2deg); }
-    75% { transform: rotate(2deg); }
-    100% { transform: rotate(0deg); }
-}
-
-/* LETTER */
-
-.letter-img {
-    width: 400px;
-    opacity: 0;
-    animation: letterFade 1s ease forwards;
-}
-
-@keyframes letterFade {
-    to { opacity: 1; }
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+    #card-stack {
+        width: 260px;
+        height: 350px;
+    }
+    .banner-letter {
+        font-size: 1.3rem;
+        gap: 3px;
+    }
+    #cake {
+        width: 220px;
+    }
+    #envelope {
+        width: 130px;
+    }
 }
