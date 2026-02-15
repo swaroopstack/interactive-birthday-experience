@@ -37,8 +37,7 @@ body {
 
 /* ================= HEADINGS ================= */
 
-h1,
-h2 {
+h1, h2 {
     margin-bottom: 20px;
     font-weight: normal;
     letter-spacing: 0.5px;
@@ -50,16 +49,18 @@ button {
     padding: 10px 22px;
     margin-top: 20px;
     cursor: pointer;
-    border-radius: 20px;
-    border: 1px solid #8d6e63;
-    background: #ffffff;
-    color: #4a3f35;
-    transition: all 0.2s ease;
-    font-family: inherit;
+    border-radius: 25px;
+    border: none;
+    background: #8b5e3c;
+    color: white;
+    font-family: 'Pacifico', cursive;
+    font-size: 1rem;
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background: #e6dcd2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
 /* ================= MEMORY STACK ================= */
@@ -91,7 +92,6 @@ button:hover {
     user-select: none;
 }
 
-/* Subtle inner shading for paper realism */
 .memoryCard::before {
     content: "";
     position: absolute;
@@ -101,23 +101,13 @@ button:hover {
     box-shadow: inset 0 0 8px rgba(0,0,0,0.03);
 }
 
-/* Scrapbook imperfect stacking */
-.memoryCard:nth-child(1) {
-    transform: rotate(-2deg);
-}
-
-.memoryCard:nth-child(2) {
-    transform: rotate(2deg);
-}
-
-.memoryCard:nth-child(3) {
-    transform: rotate(-1deg);
-}
+.memoryCard:nth-child(1) { transform: rotate(-2deg); }
+.memoryCard:nth-child(2) { transform: rotate(2deg); }
+.memoryCard:nth-child(3) { transform: rotate(-1deg); }
 
 .memoryCard h3 {
     margin-bottom: 15px;
     font-size: 1.3rem;
-    letter-spacing: 0.5px;
 }
 
 .memoryCard p {
@@ -126,17 +116,20 @@ button:hover {
     opacity: 0.9;
 }
 
-/* ================= CAKE ================= */
-
+/* ================= CAKE SCENE ================= */
 
 .cake-scene {
     position: relative;
     width: 100%;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
 }
 
-/* Cozy room background */
+/* Cozy room */
 .room-bg {
     position: absolute;
     inset: 0;
@@ -144,7 +137,7 @@ button:hover {
     z-index: 0;
 }
 
-/* Dim overlay (only affects background visually) */
+/* Dim overlay */
 .dim-overlay {
     position: absolute;
     inset: 0;
@@ -154,30 +147,27 @@ button:hover {
     z-index: 1;
 }
 
-/* Cake container */
-.cake-container {
-    position: relative;
-    z-index: 2;
-    transition: transform 0.8s ease, filter 0.8s ease, box-shadow 0.8s ease;
-}
-
-/* Cake image */
-.cake-image {
-    width: 350px;
-    display: block;
-    margin: 0 auto;
-    filter: brightness(1);
-    transition: inherit;
-}
-
-/* When lights dim */
 .cake-scene.dimmed .dim-overlay {
     opacity: 1;
 }
 
+/* Cake container */
+.cake-container {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.8s ease, filter 0.8s ease;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
+}
+
 .cake-scene.dimmed .cake-container {
     transform: scale(1.05) translateY(-5px);
-    filter: brightness(1.05);
+    filter: brightness(1.05) drop-shadow(0 25px 50px rgba(0,0,0,0.25));
+}
+
+/* Cake image */
+.cake-image {
+    width: 320px;
+    display: block;
 }
 
 /* ================= CANDLES ================= */
@@ -220,21 +210,15 @@ button:hover {
     transition: opacity 0.5s ease;
 }
 
-/* Candle positions (adjust if needed) */
-.candle-1 { top: 130px; left: 140px; }
-.candle-2 { top: 120px; left: 170px; }
-.candle-3 { top: 130px; left: 200px; }
-
-/* Flame visible when dimmed */
-.cake-scene.dimmed .flame {
-    opacity: 1;
-}
-
+.cake-scene.dimmed .flame,
 .cake-scene.dimmed .glow {
     opacity: 1;
 }
 
-/* Flicker animation */
+.candle-1 { top: 130px; left: 140px; }
+.candle-2 { top: 120px; left: 170px; }
+.candle-3 { top: 130px; left: 200px; }
+
 @keyframes flicker {
     0% { transform: scaleY(1) rotate(0deg); }
     25% { transform: scaleY(1.05) rotate(1deg); }
@@ -265,27 +249,68 @@ button:hover {
     }
 }
 
-/* ================= BANNER ================= */
+/* ================= CAKE CONTROLS ================= */
+
+.cake-controls {
+    position: relative;
+    z-index: 5;
+    margin-top: 40px;
+}
+
+/* ================= CURVED LETTER BANNER ================= */
 
 .birthday-banner {
     position: absolute;
-    top: -200px;
+    top: 60px;
     left: 50%;
     transform: translateX(-50%);
-    width: 400px;
-    z-index: 3;
-    transition: top 0.8s ease;
+    display: flex;
+    gap: 10px;
+    z-index: 6;
 }
 
-.birthday-banner img {
-    width: 100%;
+.letter {
+    position: relative;
+    font-family: 'Pacifico', cursive;
+    font-size: 2.4rem;
+    color: #8b5e3c;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    transform: translateY(-200px);
+    opacity: 0;
+    transition: transform 0.7s cubic-bezier(.34,1.56,.64,1), opacity 0.6s ease;
 }
 
-/* Drop animation */
-.birthday-banner.drop {
-    top: 40px;
+.letter::before {
+    content: "";
+    position: absolute;
+    top: -45px;
+    left: 50%;
+    width: 2px;
+    height: 45px;
+    background: #b08968;
+    transform: translateX(-50%);
 }
 
+.letter:nth-child(1) { margin-top: 20px; }
+.letter:nth-child(2) { margin-top: 12px; }
+.letter:nth-child(3) { margin-top: 6px; }
+.letter:nth-child(4) { margin-top: 0px; }
+.letter:nth-child(5) { margin-top: 6px; }
+.letter:nth-child(7) { margin-top: 18px; }
+.letter:nth-child(8) { margin-top: 10px; }
+.letter:nth-child(9) { margin-top: 5px; }
+.letter:nth-child(10){ margin-top: 0px; }
+.letter:nth-child(11){ margin-top: 4px; }
+.letter:nth-child(12){ margin-top: 10px; }
+.letter:nth-child(13){ margin-top: 16px; }
+.letter:nth-child(14){ margin-top: 22px; }
+
+.space { width: 20px; }
+
+.birthday-banner.drop .letter {
+    transform: translateY(0);
+    opacity: 1;
+}
 
 /* ================= STACK END MESSAGE ================= */
 
@@ -301,6 +326,19 @@ button:hover {
     #cardStack {
         width: 260px;
         height: 360px;
+    }
+
+    .cake-image {
+        width: 240px;
+    }
+
+    .letter {
+        font-size: 1.6rem;
+    }
+
+    .birthday-banner {
+        gap: 6px;
+        top: 40px;
     }
 }
 

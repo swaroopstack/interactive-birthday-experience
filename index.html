@@ -6,17 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birthday Experience</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- Landing -->
+    <!-- ================= LANDING ================= -->
     <section id="landing" class="screen">
         <h1>Happy Birthday</h1>
         <button id="startBtn">Start</button>
     </section>
 
-    <!-- Memory Section -->
+    <!-- ================= MEMORY SECTION ================= -->
     <section id="memory" class="screen hidden">
         <h2>Little Things About You</h2>
         <div id="cardStack"></div>
@@ -24,31 +25,33 @@
         <button id="toCakeBtn" class="hidden">Continue</button>
     </section>
 
-
+    <!-- ================= CAKE SCENE ================= -->
     <section id="cake" class="screen hidden">
 
         <div class="cake-scene">
 
+            <!-- Background -->
             <div class="room-bg"></div>
             <div class="dim-overlay"></div>
 
+            <!-- Cake -->
             <div class="cake-container">
 
-                <img src="assets/images/cake.png" class="cake-image" />
+                <img src="assets/images/cake.png" class="cake-image" alt="Birthday Cake" />
 
                 <!-- Candle 1 -->
                 <div class="candle candle-1">
                     <div class="wick"></div>
                     <div class="glow"></div>
                     <svg class="flame" viewBox="0 0 30 60">
-                        <path d="M15 0 C5 20, 5 35, 15 60 C25 35, 25 20, 15 0 Z" fill="url(#flameGradient)" />
                         <defs>
-                            <radialGradient id="flameGradient">
+                            <radialGradient id="flameGradient1">
                                 <stop offset="0%" stop-color="#fff8d6" />
                                 <stop offset="60%" stop-color="#ffb347" />
                                 <stop offset="100%" stop-color="#ff6f00" />
                             </radialGradient>
                         </defs>
+                        <path d="M15 0 C5 20, 5 35, 15 60 C25 35, 25 20, 15 0 Z" fill="url(#flameGradient1)" />
                     </svg>
                 </div>
 
@@ -57,7 +60,14 @@
                     <div class="wick"></div>
                     <div class="glow"></div>
                     <svg class="flame" viewBox="0 0 30 60">
-                        <path d="M15 0 C5 20, 5 35, 15 60 C25 35, 25 20, 15 0 Z" fill="url(#flameGradient)" />
+                        <defs>
+                            <radialGradient id="flameGradient2">
+                                <stop offset="0%" stop-color="#fff8d6" />
+                                <stop offset="60%" stop-color="#ffb347" />
+                                <stop offset="100%" stop-color="#ff6f00" />
+                            </radialGradient>
+                        </defs>
+                        <path d="M15 0 C5 20, 5 35, 15 60 C25 35, 25 20, 15 0 Z" fill="url(#flameGradient2)" />
                     </svg>
                 </div>
 
@@ -66,28 +76,48 @@
                     <div class="wick"></div>
                     <div class="glow"></div>
                     <svg class="flame" viewBox="0 0 30 60">
-                        <path d="M15 0 C5 20, 5 35, 15 60 C25 35, 25 20, 15 0 Z" fill="url(#flameGradient)" />
+                        <defs>
+                            <radialGradient id="flameGradient3">
+                                <stop offset="0%" stop-color="#fff8d6" />
+                                <stop offset="60%" stop-color="#ffb347" />
+                                <stop offset="100%" stop-color="#ff6f00" />
+                            </radialGradient>
+                        </defs>
+                        <path d="M15 0 C5 20, 5 35, 15 60 C25 35, 25 20, 15 0 Z" fill="url(#flameGradient3)" />
                     </svg>
                 </div>
 
             </div>
 
+            <!-- Controls -->
             <div class="cake-controls">
                 <button id="startCake">Start</button>
                 <button id="blowCandles" class="hidden">Blow Candles</button>
             </div>
 
-            <div class="birthday-banner hidden">
-                <img src="assets/images/banner.png" />
+            <!-- Animated Letter Banner -->
+            <div class="birthday-banner hidden" id="birthdayBanner">
+                <span class="letter">H</span>
+                <span class="letter">A</span>
+                <span class="letter">P</span>
+                <span class="letter">P</span>
+                <span class="letter">Y</span>
+                <span class="space"></span>
+                <span class="letter">B</span>
+                <span class="letter">I</span>
+                <span class="letter">R</span>
+                <span class="letter">T</span>
+                <span class="letter">H</span>
+                <span class="letter">D</span>
+                <span class="letter">A</span>
+                <span class="letter">Y</span>
             </div>
-
 
         </div>
 
     </section>
 
-
-    <!-- Final Letter -->
+    <!-- ================= FINAL LETTER ================= -->
     <section id="final" class="screen hidden">
         <h2>A Letter For You</h2>
         <p id="finalMessage"></p>
@@ -96,6 +126,8 @@
 
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
+
 </body>
+
 
 </html>
