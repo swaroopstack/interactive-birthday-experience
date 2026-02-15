@@ -31,32 +31,28 @@ body {
     display: none;
 }
 
-/* ================= HEADINGS ================= */
+/* ================= LANDING ================= */
 
-h1, h2 {
-    margin-bottom: 20px;
-    font-weight: normal;
-    letter-spacing: 0.5px;
+#landing {
+    transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-/* ================= BUTTONS ================= */
-
-button {
-    padding: 10px 22px;
-    margin-top: 20px;
-    cursor: pointer;
-    border-radius: 25px;
-    border: none;
-    background: #8b5e3c;
-    color: white;
-    font-family: 'Pacifico', cursive;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+#landing.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
 }
 
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+/* ================= MEMORY ================= */
+
+#memory {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#memory.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ================= MEMORY STACK ================= */
@@ -65,7 +61,6 @@ button:hover {
     position: relative;
     width: 320px;
     height: 420px;
-    margin-top: 30px;
 }
 
 .memoryCard {
@@ -92,106 +87,113 @@ button:hover {
 .memoryCard:nth-child(2) { transform: rotate(2deg); }
 .memoryCard:nth-child(3) { transform: rotate(-1deg); }
 
-/* ================= CAKE SCENE ================= */
+/* ================= BUTTON ================= */
 
-/* ================= CAKE SCENE ================= */
+button {
+    padding: 10px 22px;
+    cursor: pointer;
+    border-radius: 25px;
+    border: none;
+    background: #8b5e3c;
+    color: white;
+    font-family: 'Pacifico', cursive;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
 
-.cake-scene {
-    position: relative;
-    width: 100%;
-    height: 100vh;
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* ================= FULL SCREEN REVEAL ================= */
+
+#revealLayer {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
 }
 
-/* Dim overlay (pure dark, no tint) */
-.dim-overlay {
+#revealLayer.hidden {
+    display: none;
+}
+
+/* Dark overlay covering WHOLE screen */
+.overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0,0,0,0.75);
     opacity: 0;
     transition: opacity 1s ease;
-    z-index: 1;
 }
 
-.cake-scene.dimmed .dim-overlay {
+.overlay.show {
     opacity: 1;
 }
 
-/* Center text before reveal */
-.center-text {
-    position: absolute;
-    z-index: 3;
+/* Content above overlay */
+#revealContent {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+/* ================= REVEAL TEXT ================= */
+
+.reveal-text {
     font-family: 'Pacifico', cursive;
-    font-size: 2.3rem;
-    color: #ffffff;
+    font-size: 2.6rem;
+    color: white;
     opacity: 0;
     transition: opacity 0.8s ease;
 }
 
-.center-text.show {
+.reveal-text.show {
     opacity: 1;
 }
 
-/* Cake container */
-.cake-container {
-    position: relative;
-    z-index: 2;
+/* ================= ENVELOPE ================= */
+
+.envelope {
+    width: 220px;
+    cursor: pointer;
+    animation: shake 1.5s infinite;
     opacity: 0;
-    transition: opacity 1s ease, transform 1s ease;
+    transition: opacity 0.8s ease;
 }
 
-.cake-container.show {
+.envelope.show {
     opacity: 1;
-    transform: scale(1.05);
 }
 
-.cake-image {
-    width: 320px;
-    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.25));
-}
-
-
-/* ================= BANNER ================= */
-
-.birthday-banner {
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    z-index: 4;
-}
-
-.letter {
-    position: relative;
+.open-text {
+    color: white;
+    margin-top: 20px;
     font-family: 'Pacifico', cursive;
-    font-size: 2.4rem;
-    color: #8b5e3c;
-    transform: translateY(-200px);
-    opacity: 0;
-    transition: transform 0.7s cubic-bezier(.34,1.56,.64,1), opacity 0.6s ease;
 }
 
-.letter::before {
-    content: "";
-    position: absolute;
-    top: -45px;
-    left: 50%;
-    width: 2px;
-    height: 45px;
-    background: #b08968;
-    transform: translateX(-50%);
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    50% { transform: rotate(-2deg); }
+    75% { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
 }
 
-.space { width: 20px; }
+/* ================= LETTER ================= */
 
-.birthday-banner.drop .letter {
-    transform: translateY(0);
-    opacity: 1;
+.letter-content {
+    background: #fffdf9;
+    padding: 40px;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a3f35;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -202,11 +204,15 @@ button:hover {
         height: 360px;
     }
 
-    .cake-image {
-        width: 240px;
+    .reveal-text {
+        font-size: 2rem;
     }
 
-    .letter {
-        font-size: 1.6rem;
+    .envelope {
+        width: 170px;
+    }
+
+    .letter-content {
+        padding: 25px;
     }
 }

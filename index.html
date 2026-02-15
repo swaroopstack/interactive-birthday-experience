@@ -11,67 +11,29 @@
 
 <body>
 
-    <!-- ================= LANDING ================= -->
+    <!-- LANDING -->
     <section id="landing" class="screen">
         <h1>Happy Birthday</h1>
         <button id="startBtn">Start</button>
     </section>
 
-    <!-- ================= MEMORY SECTION ================= -->
+    <!-- MEMORY -->
     <section id="memory" class="screen hidden">
         <h2>Little Things About You</h2>
         <div id="cardStack"></div>
-        <p id="stackEndMessage" class="hidden">I have something for you.</p>
-        <button id="toCakeBtn" class="hidden">Continue</button>
     </section>
 
-    <!-- ================= CAKE SCENE ================= -->
-    <section id="cake" class="screen hidden">
-
-        <div class="cake-scene">
-
-            <div class="dim-overlay"></div>
-
-            <div class="center-text hidden" id="centerText">
-                I have something for you.
-            </div>
-
-            <div class="cake-container hidden" id="cakeContainer">
-                <img src="assets/images/cake.png" class="cake-image" alt="Birthday Cake" />
-            </div>
-
-            <div class="birthday-banner hidden" id="birthdayBanner">
-                <span class="letter">H</span>
-                <span class="letter">A</span>
-                <span class="letter">P</span>
-                <span class="letter">P</span>
-                <span class="letter">Y</span>
-                <span class="space"></span>
-                <span class="letter">B</span>
-                <span class="letter">I</span>
-                <span class="letter">R</span>
-                <span class="letter">T</span>
-                <span class="letter">H</span>
-                <span class="letter">D</span>
-                <span class="letter">A</span>
-                <span class="letter">Y</span>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- ================= FINAL LETTER ================= -->
-    <section id="final" class="screen hidden">
-        <h2>A Letter For You</h2>
-        <p id="finalMessage"></p>
-        <button id="restartBtn">Replay</button>
-    </section>
+    <!-- FULL SCREEN REVEAL LAYER -->
+    <div id="revealLayer" class="hidden">
+        <div class="overlay"></div>
+        <div id="revealContent"></div>
+    </div>
 
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
 
 </body>
+
 
 
 </html>

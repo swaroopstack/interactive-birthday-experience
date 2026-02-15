@@ -1,47 +1,33 @@
-// ================= SCREEN REFERENCES =================
+// ================= ELEMENT REFERENCES =================
 
 const landing = document.getElementById("landing");
 const memory = document.getElementById("memory");
-const cake = document.getElementById("cake");
-const finalScreen = document.getElementById("final");
-
 const startBtn = document.getElementById("startBtn");
-const restartBtn = document.getElementById("restartBtn");
 
 const cardStack = document.getElementById("cardStack");
 
-const finalMessage = document.getElementById("finalMessage");
+const revealLayer = document.getElementById("revealLayer");
+const overlay = document.querySelector(".overlay");
+const revealContent = document.getElementById("revealContent");
 
-// Cake elements
-const cakeScene = document.querySelector(".cake-scene");
-const centerText = document.getElementById("centerText");
-const cakeContainer = document.getElementById("cakeContainer");
-const banner = document.getElementById("birthdayBanner");
-
-// ================= UTILITY =================
-
-function showScreen(screen) {
-  landing.classList.add("hidden");
-  memory.classList.add("hidden");
-  cake.classList.add("hidden");
-  finalScreen.classList.add("hidden");
-
-  screen.classList.remove("hidden");
-}
-
-// ================= LANDING =================
+// ================= LANDING TO MEMORY =================
 
 startBtn.addEventListener("click", () => {
-  showScreen(memory);
+  landing.classList.add("fade-out");
+
+  setTimeout(() => {
+    landing.style.display = "none";
+    memory.classList.remove("hidden");
+    memory.classList.add("show");
+  }, 600);
 });
 
-// ================= MEMORY STACK =================
+// ================= MEMORY CARDS =================
 
 function createCards() {
   memoryData.forEach((item, index) => {
     const card = document.createElement("div");
     card.classList.add("memoryCard");
-
     card.style.zIndex = memoryData.length - index;
 
     card.innerHTML = `
@@ -80,28 +66,6 @@ function addDragLogic(card) {
     handleRelease(card, currentX, threshold);
     currentX = 0;
   });
-
-  // Touch support
-  card.addEventListener("touchstart", (e) => {
-    isDragging = true;
-    startX = e.touches[0].clientX;
-    card.style.transition = "none";
-  });
-
-  card.addEventListener("touchmove", (e) => {
-    if (!isDragging) return;
-    currentX = e.touches[0].clientX - startX;
-    card.style.transform =
-      `translateX(${currentX}px) rotate(${currentX * 0.1}deg)`;
-  });
-
-  card.addEventListener("touchend", () => {
-    if (!isDragging) return;
-    isDragging = false;
-    card.style.transition = "transform 0.3s ease";
-    handleRelease(card, currentX, threshold);
-    currentX = 0;
-  });
 }
 
 function handleRelease(card, currentX, threshold) {
@@ -121,63 +85,64 @@ function handleRelease(card, currentX, threshold) {
 function checkStackEnd() {
   if (cardStack.children.length === 0) {
     setTimeout(() => {
-      startCakeReveal();
-    }, 800);
+      startRevealSequence();
+    }, 700);
   }
 }
 
 createCards();
 
-// ================= CAKE REVEAL SEQUENCE =================
+// ================= REVEAL SEQUENCE =================
 
-function startCakeReveal() {
+function startRevealSequence() {
 
-  showScreen(cake);
+  revealLayer.classList.remove("hidden");
 
-  // Step 1 — Text appears
+  // Step 1: Text
+  revealContent.innerHTML = `
+    <div class="reveal-text">I have something for you.</div>
+  `;
+
+  const text = document.querySelector(".reveal-text");
+
   setTimeout(() => {
-    centerText.classList.remove("hidden");
-    centerText.classList.add("show");
-  }, 300);
+    text.classList.add("show");
+  }, 100);
 
-  // Step 2 — Lights dim
+  // Step 2: Dim whole screen
   setTimeout(() => {
-    cakeScene.classList.add("dimmed");
-  }, 1000);
+    overlay.classList.add("show");
+  }, 800);
 
-  // Step 3 — Cake fades in
+  // Step 3: Envelope appears
   setTimeout(() => {
-    cakeContainer.classList.remove("hidden");
-    cakeContainer.classList.add("show");
-  }, 1800);
-
-  // Step 4 — Lights brighten + remove text
-  setTimeout(() => {
-    cakeScene.classList.remove("dimmed");
-    centerText.classList.remove("show");
-  }, 3000);
-
-  // Step 5 — Banner drop
-  setTimeout(() => {
-    banner.classList.remove("hidden");
-    setTimeout(() => {
-      banner.classList.add("drop");
-    }, 50);
-  }, 3600);
-
-  // Step 6 — Final letter
-  setTimeout(() => {
-    showFinal();
-  }, 5500);
+    showEnvelope();
+  }, 2000);
 }
 
-// ================= FINAL =================
+// ================= ENVELOPE =================
 
-function showFinal() {
-  showScreen(finalScreen);
-  finalMessage.textContent = finalLetter;
+function showEnvelope() {
+  revealContent.innerHTML = `
+    <img src="assets/images/envelope.png" class="envelope" id="envelope">
+    <p class="open-text">Open me</p>
+  `;
+
+  const envelope = document.getElementById("envelope");
+
+  setTimeout(() => {
+    envelope.classList.add("show");
+  }, 100);
+
+  envelope.addEventListener("click", openLetter);
 }
 
-restartBtn.addEventListener("click", () => {
-  location.reload();
-});
+// ================= LETTER =================
+
+function openLetter() {
+  revealContent.innerHTML = `
+    <div class="letter-content">
+      ${finalLetter}
+    </div>
+  `;
+}
