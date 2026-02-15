@@ -1,39 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birthday Experience</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- LANDING -->
-    <section id="landing" class="screen">
-        <h1>Happy Birthday</h1>
-        <button id="startBtn">Start</button>
-    </section>
+<!-- LANDING -->
+<section id="landing" class="screen">
+    <h1>Happy Birthday</h1>
+    <button id="startBtn">Start</button>
+</section>
 
-    <!-- MEMORY -->
-    <section id="memory" class="screen hidden">
-        <h2>Little Things About You</h2>
-        <div id="cardStack"></div>
-    </section>
+<!-- MEMORY -->
+<section id="memory" class="screen hidden">
+    <h2 id="memoryTitle">Little Things About You</h2>
+    <div id="cardStack"></div>
+</section>
 
-    <!-- FULL SCREEN REVEAL LAYER -->
-    <div id="revealLayer" class="hidden">
-        <div class="overlay"></div>
-        <div id="revealContent"></div>
-    </div>
+<!-- FULL SCREEN REVEAL -->
+<div id="revealLayer" class="hidden">
+    <div class="overlay"></div>
+    <div id="revealContent"></div>
+</div>
 
-    <script src="js/data.js"></script>
-    <script src="js/main.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
 
 </body>
-
-
-
 </html>

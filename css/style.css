@@ -1,4 +1,4 @@
-/* ================= BASE ================= */
+/* BASE */
 
 html, body {
     margin: 0;
@@ -6,16 +6,14 @@ html, body {
 }
 
 body {
-    font-family: "Georgia", serif;
+    font-family: Georgia, serif;
     background: #f3eee7 url("../assets/images/paper.png");
     background-size: cover;
-    background-repeat: no-repeat;
     background-attachment: fixed;
-    color: #4a3f35;
     text-align: center;
 }
 
-/* ================= SCREEN ================= */
+/* SCREEN */
 
 .screen {
     min-height: 100vh;
@@ -23,15 +21,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px;
-    box-sizing: border-box;
 }
 
 .hidden {
     display: none;
 }
 
-/* ================= LANDING ================= */
+/* LANDING */
 
 #landing {
     transition: opacity 0.6s ease, transform 0.6s ease;
@@ -42,11 +38,11 @@ body {
     transform: translateY(-20px);
 }
 
-/* ================= MEMORY ================= */
+/* MEMORY */
 
 #memory {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateY(40px);
     transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
@@ -55,7 +51,7 @@ body {
     transform: translateY(0);
 }
 
-/* ================= MEMORY STACK ================= */
+/* CARDS */
 
 #cardStack {
     position: relative;
@@ -68,45 +64,36 @@ body {
     width: 100%;
     height: 100%;
     background: #fffdf9;
-    border: 1px solid #e0d6cc;
     border-radius: 12px;
-    box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.07),
-        0 3px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     padding: 25px;
-    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: grab;
     transition: transform 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    user-select: none;
 }
 
-.memoryCard:nth-child(1) { transform: rotate(-2deg); }
-.memoryCard:nth-child(2) { transform: rotate(2deg); }
-.memoryCard:nth-child(3) { transform: rotate(-1deg); }
-
-/* ================= BUTTON ================= */
+/* BUTTON */
 
 button {
     padding: 10px 22px;
-    cursor: pointer;
     border-radius: 25px;
     border: none;
     background: #8b5e3c;
     color: white;
     font-family: 'Pacifico', cursive;
-    font-size: 1rem;
-    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+/* TITLE FADE */
+
+.fade-out-text {
+    opacity: 0;
+    transition: opacity 0.6s ease;
 }
 
-/* ================= FULL SCREEN REVEAL ================= */
+/* REVEAL LAYER */
 
 #revealLayer {
     position: fixed;
@@ -117,11 +104,6 @@ button:hover {
     align-items: center;
 }
 
-#revealLayer.hidden {
-    display: none;
-}
-
-/* Dark overlay covering WHOLE screen */
 .overlay {
     position: absolute;
     inset: 0;
@@ -134,18 +116,16 @@ button:hover {
     opacity: 1;
 }
 
-/* Content above overlay */
 #revealContent {
     position: relative;
     z-index: 2;
-    text-align: center;
 }
 
-/* ================= REVEAL TEXT ================= */
+/* REVEAL TEXT */
 
 .reveal-text {
     font-family: 'Pacifico', cursive;
-    font-size: 2.6rem;
+    font-size: 2.5rem;
     color: white;
     opacity: 0;
     transition: opacity 0.8s ease;
@@ -155,24 +135,54 @@ button:hover {
     opacity: 1;
 }
 
-/* ================= ENVELOPE ================= */
+/* CAKE */
+
+.cake-img {
+    width: 300px;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: cakeFade 1s ease forwards;
+}
+
+@keyframes cakeFade {
+    to {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+/* BANNER */
+
+.banner {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    color: white;
+    margin-top: 20px;
+    opacity: 0;
+    transform: translateY(-40px);
+    animation: bannerDrop 0.8s ease forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes bannerDrop {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ENVELOPE */
 
 .envelope {
-    width: 220px;
-    cursor: pointer;
-    animation: shake 1.5s infinite;
+    width: 200px;
+    margin-top: 40px;
     opacity: 0;
+    animation: shake 1.5s infinite;
     transition: opacity 0.8s ease;
 }
 
 .envelope.show {
     opacity: 1;
-}
-
-.open-text {
-    color: white;
-    margin-top: 20px;
-    font-family: 'Pacifico', cursive;
 }
 
 @keyframes shake {
@@ -183,36 +193,14 @@ button:hover {
     100% { transform: rotate(0deg); }
 }
 
-/* ================= LETTER ================= */
+/* LETTER */
 
-.letter-content {
-    background: #fffdf9;
-    padding: 40px;
-    max-width: 500px;
-    border-radius: 12px;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #4a3f35;
+.letter-img {
+    width: 400px;
+    opacity: 0;
+    animation: letterFade 1s ease forwards;
 }
 
-/* ================= RESPONSIVE ================= */
-
-@media (max-width: 600px) {
-    #cardStack {
-        width: 260px;
-        height: 360px;
-    }
-
-    .reveal-text {
-        font-size: 2rem;
-    }
-
-    .envelope {
-        width: 170px;
-    }
-
-    .letter-content {
-        padding: 25px;
-    }
+@keyframes letterFade {
+    to { opacity: 1; }
 }
