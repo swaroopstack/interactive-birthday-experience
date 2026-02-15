@@ -1,4 +1,4 @@
-// Array of memories. Limit to 3-5 for pacing as requested.
+// Array of memories. Limit to 3-5 for pacing.
 const memoryData = [
     "The way you scrunch your nose when you laugh at terrible jokes.",
     "How you somehow always know exactly what I'm thinking.",

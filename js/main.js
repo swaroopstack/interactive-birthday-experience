@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const stack = document.getElementById('card-stack');
     let remainingCards = memoryData.length;
 
-    // We reverse the array so the first element is generated last (putting it highest in the DOM z-index)
+    // Reverse array so first element is generated last (highest z-index)
     [...memoryData].reverse().forEach((text, i) => {
         const card = document.createElement('div');
         card.className = 'card';
@@ -46,7 +46,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const baseTransform = `translateY(${translateY}px) rotate(${rotate}deg)`;
         card.style.transform = baseTransform;
-        card.dataset.baseTransform = baseTransform; // Store to snap back if drag fails
+        card.dataset.baseTransform = baseTransform; 
+        
+        // Add random float delay so cards move organically, not all at once
+        card.style.animationDelay = `${Math.random() * 2}s`;
         
         stack.appendChild(card);
         attachDragBehavior(card);
@@ -66,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
         card.addEventListener('pointermove', (e) => {
             if (!isDragging) return;
             currentX = e.clientX - startX;
-            // Add a slight rotation linked to the drag distance for organic feel
             const rotation = currentX * 0.05; 
             card.style.transform = `${card.dataset.baseTransform} translateX(${currentX}px) rotate(${rotation}deg)`;
         });
@@ -112,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Keep text visible briefly, then dim background
             setTimeout(() => {
                 text.style.opacity = '0';
-                setTimeout(triggerReveal, 800); // Wait for text to fade before full dim
+                setTimeout(triggerReveal, 800); 
             }, 2000); 
         }, 500);
     }
@@ -120,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function triggerReveal() {
         document.getElementById('memory-stage').classList.add('hidden');
         
-        // Full screen blackout overlay
         const overlay = document.getElementById('dim-overlay');
         overlay.classList.add('active');
 
@@ -128,13 +129,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const revealStage = document.getElementById('reveal-stage');
             revealStage.classList.remove('hidden');
             
-            // 1. Reveal Cake
             const cake = document.getElementById('cake');
             cake.classList.add('show');
 
-            // 2. Drop Banner shortly after
             setTimeout(dropBanner, 1000); 
-        }, 1000); // Matches the 1s dim duration
+        }, 1000); 
     }
 
     /* -------------------------------------------------------------
@@ -149,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         letters.forEach((char, i) => {
             if(char === ' ') {
                 const space = document.createElement('span');
-                space.style.width = '12px'; // Gap for space character
+                space.style.width = '12px'; 
                 banner.appendChild(space);
                 return;
             }
@@ -158,23 +157,19 @@ document.addEventListener("DOMContentLoaded", () => {
             span.textContent = char;
             span.className = 'banner-letter';
             
-            // Arc logic: Calculate absolute distance from center point.
-            // Pushing outer letters down (margin-top) creates a hanging banner 'U' arc.
             const distFromCenter = Math.abs(i - mid);
             const arcOffset = Math.pow(distFromCenter, 1.4) * 3; 
             span.style.marginTop = `${arcOffset}px`;
             
-            // Stagger animation timing
             span.style.animationDelay = `${i * 0.08}s`;
             banner.appendChild(span);
             
-            // Trigger drop
             setTimeout(() => {
                 span.classList.add('drop');
             }, 50);
         });
 
-        // 3. Drop Envelope
+        // Drop Envelope
         setTimeout(() => {
             const envelope = document.getElementById('envelope-container');
             envelope.classList.remove('hidden');
@@ -182,15 +177,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }, letters.length * 80 + 800); 
     }
 
-    // 4. Envelope click -> Letter Reveal End State
+    // Envelope click -> Letter Reveal End State
     document.getElementById('envelope-container').addEventListener('click', function() {
         this.classList.remove('show');
         
         setTimeout(() => {
             this.classList.add('hidden');
             const letter = document.getElementById('letter');
-            document.getElementById('cake').style.opacity = '0.3'; // Dim cake so letter pops
-            document.getElementById('banner').style.opacity = '0.3'; // Dim banner
+            
+            // Dim cake and banner so the letter stands out
+            document.getElementById('cake').style.opacity = '0.3'; 
+            document.getElementById('banner').style.opacity = '0.3'; 
             
             letter.classList.remove('hidden');
             setTimeout(() => {
