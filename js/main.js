@@ -18,7 +18,7 @@ const stackEndMessage = document.getElementById("stackEndMessage");
 const cakeScene = document.querySelector(".cake-scene");
 const startCakeBtn = document.getElementById("startCake");
 const blowCandlesBtn = document.getElementById("blowCandles");
-const banner = document.querySelector(".birthday-banner");
+const banner = document.getElementById("birthdayBanner");
 
 // Final
 const finalMessage = document.getElementById("finalMessage");
@@ -154,12 +154,13 @@ startCakeBtn.addEventListener("click", () => {
 });
 
 blowCandlesBtn.addEventListener("click", () => {
+
   // Turn off flames and glow
   document.querySelectorAll(".flame, .glow").forEach(el => {
     el.style.opacity = "0";
   });
 
-  // Add smoke
+  // Add smoke effect
   document.querySelectorAll(".candle").forEach(candle => {
     const smoke = document.createElement("div");
     smoke.classList.add("smoke");
@@ -170,17 +171,20 @@ blowCandlesBtn.addEventListener("click", () => {
     setTimeout(() => smoke.remove(), 1000);
   });
 
-  // Brighten room and drop banner
+  // Restore lighting and drop banner
   setTimeout(() => {
     cakeScene.classList.remove("dimmed");
 
     banner.classList.remove("hidden");
-    banner.classList.add("drop");
 
-    // Transition to final after short celebration
+    setTimeout(() => {
+      banner.classList.add("drop");
+    }, 50);
+
+    // Move to final after short celebration
     setTimeout(() => {
       showFinal();
-    }, 2000);
+    }, 2500);
 
   }, 800);
 
