@@ -25,34 +25,67 @@
     </section>
 
 
-    <!-- Cake Section -->
     <section id="cake" class="screen hidden">
-        <h2>I Made Something For You</h2>
 
-        <div id="cakeDisplay">
-            <div class="fakeCake">[ Your Cake Design Will Go Here ]</div>
+        <div class="cake-scene">
+
+            <div class="room-bg"></div>
+            <div class="dim-overlay"></div>
+
+            <div class="cake-container">
+
+                <img src="assets/images/cake.png" class="cake-image" />
+
+                <!-- Candle 1 -->
+                <div class="candle candle-1">
+                    <div class="wick"></div>
+                    <div class="glow"></div>
+                    <svg class="flame" viewBox="0 0 30 60">
+                        <path d="M15 0 C5 20, 5 35, 15 60 C25 35, 25 20, 15 0 Z" fill="url(#flameGradient)" />
+                        <defs>
+                            <radialGradient id="flameGradient">
+                                <stop offset="0%" stop-color="#fff8d6" />
+                                <stop offset="60%" stop-color="#ffb347" />
+                                <stop offset="100%" stop-color="#ff6f00" />
+                            </radialGradient>
+                        </defs>
+                    </svg>
+                </div>
+
+                <!-- Candle 2 -->
+                <div class="candle candle-2">
+                    <div class="wick"></div>
+                    <div class="glow"></div>
+                    <svg class="flame" viewBox="0 0 30 60">
+                        <path d="M15 0 C5 20, 5 35, 15 60 C25 35, 25 20, 15 0 Z" fill="url(#flameGradient)" />
+                    </svg>
+                </div>
+
+                <!-- Candle 3 -->
+                <div class="candle candle-3">
+                    <div class="wick"></div>
+                    <div class="glow"></div>
+                    <svg class="flame" viewBox="0 0 30 60">
+                        <path d="M15 0 C5 20, 5 35, 15 60 C25 35, 25 20, 15 0 Z" fill="url(#flameGradient)" />
+                    </svg>
+                </div>
+
+            </div>
+
+            <div class="cake-controls">
+                <button id="startCake">Start</button>
+                <button id="blowCandles" class="hidden">Blow Candles</button>
+            </div>
+
+            <div class="birthday-banner hidden">
+                <img src="assets/images/banner.png" />
+            </div>
+
+
         </div>
 
-        <div id="cakeButtons" class="hidden">
-            <button id="likeCake">I Like It</button>
-            <button id="notSureCake">Not Sure</button>
-        </div>
-
-        <p id="cakeResponse"></p>
-
-        <!-- Builder Mode -->
-        <div id="cakeBuilder" class="hidden">
-            <h3>Help Me Make One</h3>
-
-            <button class="builderOption" data-type="Chocolate">Chocolate</button>
-            <button class="builderOption" data-type="Vanilla">Vanilla</button>
-            <button class="builderOption" data-type="Strawberry">Strawberry</button>
-
-            <p id="builderChoice"></p>
-
-            <button id="finishBtn" class="hidden">Continue</button>
-        </div>
     </section>
+
 
     <!-- Final Letter -->
     <section id="final" class="screen hidden">

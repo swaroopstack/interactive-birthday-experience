@@ -128,14 +128,164 @@ button:hover {
 
 /* ================= CAKE ================= */
 
-.fakeCake {
-    border-radius: 12px;
-    background: #fffdf9;
-    padding: 60px;
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.06);
-    border: 1px solid #e0d6cc;
+
+.cake-scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
 }
+
+/* Cozy room background */
+.room-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, #f6e7d8 0%, #e8d4c2 100%);
+    z-index: 0;
+}
+
+/* Dim overlay (only affects background visually) */
+.dim-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(60, 40, 20, 0.65);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    z-index: 1;
+}
+
+/* Cake container */
+.cake-container {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.8s ease, filter 0.8s ease, box-shadow 0.8s ease;
+}
+
+/* Cake image */
+.cake-image {
+    width: 350px;
+    display: block;
+    margin: 0 auto;
+    filter: brightness(1);
+    transition: inherit;
+}
+
+/* When lights dim */
+.cake-scene.dimmed .dim-overlay {
+    opacity: 1;
+}
+
+.cake-scene.dimmed .cake-container {
+    transform: scale(1.05) translateY(-5px);
+    filter: brightness(1.05);
+}
+
+/* ================= CANDLES ================= */
+
+.candle {
+    position: absolute;
+    width: 10px;
+    height: 40px;
+    background: #f5f5f5;
+    border-radius: 3px;
+}
+
+.wick {
+    width: 2px;
+    height: 8px;
+    background: #333;
+    margin: 0 auto;
+}
+
+.flame {
+    width: 18px;
+    position: absolute;
+    top: -45px;
+    left: -4px;
+    opacity: 0;
+    transform-origin: center bottom;
+    animation: flicker 1.5s infinite ease-in-out;
+}
+
+.glow {
+    position: absolute;
+    top: -30px;
+    left: -15px;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, rgba(255,200,100,0.6) 0%, rgba(255,150,0,0.2) 60%, transparent 80%);
+    border-radius: 50%;
+    filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Candle positions (adjust if needed) */
+.candle-1 { top: 130px; left: 140px; }
+.candle-2 { top: 120px; left: 170px; }
+.candle-3 { top: 130px; left: 200px; }
+
+/* Flame visible when dimmed */
+.cake-scene.dimmed .flame {
+    opacity: 1;
+}
+
+.cake-scene.dimmed .glow {
+    opacity: 1;
+}
+
+/* Flicker animation */
+@keyframes flicker {
+    0% { transform: scaleY(1) rotate(0deg); }
+    25% { transform: scaleY(1.05) rotate(1deg); }
+    50% { transform: scaleY(0.95) rotate(-1deg); }
+    75% { transform: scaleY(1.02) rotate(0.5deg); }
+    100% { transform: scaleY(1) rotate(0deg); }
+}
+
+/* ================= SMOKE ================= */
+
+.smoke {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, rgba(200,200,200,0.7) 0%, rgba(200,200,200,0.3) 60%, transparent 80%);
+    border-radius: 50%;
+    animation: smokeRise 1s forwards ease-out;
+}
+
+@keyframes smokeRise {
+    from {
+        opacity: 0.8;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-40px) scale(1.8);
+    }
+}
+
+/* ================= BANNER ================= */
+
+.birthday-banner {
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    z-index: 3;
+    transition: top 0.8s ease;
+}
+
+.birthday-banner img {
+    width: 100%;
+}
+
+/* Drop animation */
+.birthday-banner.drop {
+    top: 40px;
+}
+
 
 /* ================= STACK END MESSAGE ================= */
 

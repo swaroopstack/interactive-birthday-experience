@@ -8,23 +8,17 @@ const finalScreen = document.getElementById("final");
 // Buttons
 const startBtn = document.getElementById("startBtn");
 const toCakeBtn = document.getElementById("toCakeBtn");
-const likeCake = document.getElementById("likeCake");
-const notSureCake = document.getElementById("notSureCake");
-const finishBtn = document.getElementById("finishBtn");
 const restartBtn = document.getElementById("restartBtn");
 
 // Memory Elements
 const cardStack = document.getElementById("cardStack");
 const stackEndMessage = document.getElementById("stackEndMessage");
 
-// Cake Elements
-const cakeButtons = document.getElementById("cakeButtons");
-const cakeResponse = document.getElementById("cakeResponse");
-
-// Builder Elements
-const cakeBuilder = document.getElementById("cakeBuilder");
-const builderChoice = document.getElementById("builderChoice");
-const builderOptions = document.querySelectorAll(".builderOption");
+// Cake Scene Elements
+const cakeScene = document.querySelector(".cake-scene");
+const startCakeBtn = document.getElementById("startCake");
+const blowCandlesBtn = document.getElementById("blowCandles");
+const banner = document.querySelector(".birthday-banner");
 
 // Final
 const finalMessage = document.getElementById("finalMessage");
@@ -148,43 +142,49 @@ createCards();
 
 toCakeBtn.addEventListener("click", () => {
   showScreen(cake);
-
-  setTimeout(() => {
-    cakeButtons.classList.remove("hidden");
-  }, 1000);
 });
 
-// ================= CAKE BRANCHING =================
+// ================= CAKE CINEMATIC FLOW =================
 
-// If they like your cake
-likeCake.addEventListener("click", () => {
-  showFinal();
+startCakeBtn.addEventListener("click", () => {
+  cakeScene.classList.add("dimmed");
+
+  blowCandlesBtn.classList.remove("hidden");
+  startCakeBtn.classList.add("hidden");
 });
 
-// If they don't like it
-notSureCake.addEventListener("click", () => {
-  cakeResponse.textContent =
-    "That is fine. I am not a professional. Maybe you can help me make one.";
-
-  cakeBuilder.classList.remove("hidden");
-});
-
-// ================= BUILDER MODE =================
-
-builderOptions.forEach(option => {
-  option.addEventListener("click", () => {
-    const flavor = option.dataset.type;
-
-    builderChoice.textContent =
-      "Good choice. A " + flavor + " cake it is.";
-
-    finishBtn.classList.remove("hidden");
+blowCandlesBtn.addEventListener("click", () => {
+  // Turn off flames and glow
+  document.querySelectorAll(".flame, .glow").forEach(el => {
+    el.style.opacity = "0";
   });
-});
 
-// Continue after building
-finishBtn.addEventListener("click", () => {
-  showFinal();
+  // Add smoke
+  document.querySelectorAll(".candle").forEach(candle => {
+    const smoke = document.createElement("div");
+    smoke.classList.add("smoke");
+    smoke.style.left = "0px";
+    smoke.style.top = "-30px";
+    candle.appendChild(smoke);
+
+    setTimeout(() => smoke.remove(), 1000);
+  });
+
+  // Brighten room and drop banner
+  setTimeout(() => {
+    cakeScene.classList.remove("dimmed");
+
+    banner.classList.remove("hidden");
+    banner.classList.add("drop");
+
+    // Transition to final after short celebration
+    setTimeout(() => {
+      showFinal();
+    }, 2000);
+
+  }, 800);
+
+  blowCandlesBtn.classList.add("hidden");
 });
 
 // ================= FINAL =================
