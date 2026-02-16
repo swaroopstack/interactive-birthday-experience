@@ -39,13 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const baseTransform = `translateY(${translateY}px) rotate(${rotate}deg)`;
         card.style.transform = baseTransform;
         card.dataset.baseTransform = baseTransform; 
-        
         card.style.animationDelay = `${Math.random() * 2}s`;
         
         stack.appendChild(card);
         attachDragBehavior(card);
     });
 
+    // UPDATED DRAG LOGIC FOR MOBILE SUPPORT
     function attachDragBehavior(card) {
         let startX = 0, currentX = 0;
         let isDragging = false;
@@ -64,10 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
             card.style.transform = `${card.dataset.baseTransform} translateX(${currentX}px) rotate(${rotation}deg)`;
         });
 
-        card.addEventListener('pointerup', (e) => {
+        const stopDrag = (e) => {
             if (!isDragging) return;
             isDragging = false;
             card.classList.remove('dragging');
+            card.releasePointerCapture(e.pointerId);
             
             if (Math.abs(currentX) > 100) {
                 const direction = currentX > 0 ? window.innerWidth : -window.innerWidth;
@@ -84,7 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 card.style.transform = card.dataset.baseTransform;
             }
             currentX = 0;
-        });
+        };
+
+        card.addEventListener('pointerup', stopDrag);
+        card.addEventListener('pointercancel', stopDrag); // Fixes dropped touches on mobile
     }
 
     function triggerTransition() {
@@ -105,7 +109,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function triggerReveal() {
         document.getElementById('memory-stage').classList.add('hidden');
-        
         const overlay = document.getElementById('dim-overlay');
         overlay.classList.add('active');
 
