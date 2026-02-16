@@ -75,11 +75,10 @@ body {
     transition: opacity 0.6s ease;
 }
 
-/* WIDER CARD STACK TO FIT YOUR LANDSCAPE PNG */
 #card-stack {
     width: 85vw;
-    max-width: 700px;
-    height: 380px;
+    max-width: 650px;
+    aspect-ratio: 1.6;
     position: relative;
     margin-top: 2rem;
 }
@@ -89,7 +88,7 @@ body {
     width: 100%;
     height: 100%;
     background-image: url('../assets/images/card-bg.png');
-    background-size: 100% 100%;
+    background-size: contain; 
     background-position: center;
     background-repeat: no-repeat;
     background-color: transparent;
@@ -97,8 +96,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    padding: 60px 100px; /* Keeps text inside the lines */
+    padding: 10% 15%; 
     box-sizing: border-box;
     text-align: center;
     color: #4a3b32;
@@ -107,10 +105,7 @@ body {
     line-height: 1.5;
     cursor: grab;
     user-select: none;
-    
-    /* CRITICAL FIX FOR MOBILE DRAG */
     touch-action: none; 
-    
     transform-origin: bottom center;
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     will-change: transform;
@@ -209,10 +204,9 @@ body {
     animation: dropBounce 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-/* ENVELOPE SLIDE-UP ANIMATION */
 #envelope-container {
     position: absolute;
-    bottom: -200px; /* Starts off-screen */
+    bottom: -200px; 
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
@@ -226,7 +220,7 @@ body {
 
 #envelope-container.show {
     opacity: 1;
-    bottom: 8vh; /* Bounces up to settle below cake */
+    bottom: 8vh; 
     pointer-events: auto;
 }
 
@@ -263,15 +257,13 @@ body {
     animation: soft-float 5s ease-in-out infinite; 
 }
 
-/* MOBILE RESPONSIVENESS */
 @media (max-width: 600px) {
     #card-stack {
         width: 95vw;
-        height: 280px;
     }
     .card {
-        padding: 40px 60px;
-        font-size: 1.3rem;
+        padding: 8% 12%; 
+        font-size: 1.2rem;
     }
     #envelope-container.show {
         bottom: 5vh; 
