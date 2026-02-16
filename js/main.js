@@ -1,8 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    /* -------------------------------------------------------------
-       1. STAGE TRANSITIONS & SETUP
-       ------------------------------------------------------------- */
     const startBtn = document.getElementById('start-btn');
     const landingStage = document.getElementById('landing-stage');
     const memoryStage = document.getElementById('memory-stage');
@@ -14,25 +11,20 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 800);
     });
 
-    /* -------------------------------------------------------------
-       2. MEMORY CARD STACK & DRAG LOGIC
-       ------------------------------------------------------------- */
     const stack = document.getElementById('card-stack');
     let remainingCards = memoryData.length;
 
-    // Reverse array so first element is generated last (highest z-index)
     [...memoryData].reverse().forEach((text, i) => {
         const card = document.createElement('div');
         card.className = 'card';
         card.textContent = text;
         
-        // Calculate stacking rules visually (Top Card is visualIndex 0)
         const visualIndex = memoryData.length - 1 - i;
         let rotate = 0;
         let translateY = 0;
 
         if (visualIndex === 0) {
-            rotate = -2; // Top card
+            rotate = -2;
         } else if (visualIndex === 1) {
             rotate = 2;
             translateY = 4;
@@ -48,7 +40,6 @@ document.addEventListener("DOMContentLoaded", () => {
         card.style.transform = baseTransform;
         card.dataset.baseTransform = baseTransform; 
         
-        // Add random float delay so cards move organically, not all at once
         card.style.animationDelay = `${Math.random() * 2}s`;
         
         stack.appendChild(card);
@@ -78,9 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
             isDragging = false;
             card.classList.remove('dragging');
             
-            // Threshold for successful swipe
             if (Math.abs(currentX) > 100) {
-                // Throw card out of frame
                 const direction = currentX > 0 ? window.innerWidth : -window.innerWidth;
                 card.style.transition = 'transform 0.4s ease-out, opacity 0.4s ease-out';
                 card.style.transform = `${card.dataset.baseTransform} translateX(${direction}px) rotate(${currentX * 0.1}deg)`;
@@ -92,16 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (remainingCards === 0) triggerTransition();
                 }, 400);
             } else {
-                // Snap card back
                 card.style.transform = card.dataset.baseTransform;
             }
             currentX = 0;
         });
     }
 
-    /* -------------------------------------------------------------
-       3. CINEMATIC TRANSITIONS (DIMMING & REVEAL)
-       ------------------------------------------------------------- */
     function triggerTransition() {
         const title = document.getElementById('memory-title');
         title.style.opacity = '0';
@@ -111,7 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
             text.classList.remove('hidden');
             text.style.opacity = '1';
             
-            // Keep text visible briefly, then dim background
             setTimeout(() => {
                 text.style.opacity = '0';
                 setTimeout(triggerReveal, 800); 
@@ -136,9 +120,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 1000); 
     }
 
-    /* -------------------------------------------------------------
-       4. BANNER GENERATOR & LETTER LOGIC
-       ------------------------------------------------------------- */
     function dropBanner() {
         const banner = document.getElementById('banner');
         const text = "HAPPY BIRTHDAY";
@@ -169,7 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 50);
         });
 
-        // Drop Envelope
         setTimeout(() => {
             const envelope = document.getElementById('envelope-container');
             envelope.classList.remove('hidden');
@@ -177,7 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }, letters.length * 80 + 800); 
     }
 
-    // Envelope click -> Letter Reveal End State
     document.getElementById('envelope-container').addEventListener('click', function() {
         this.classList.remove('show');
         
@@ -185,7 +164,6 @@ document.addEventListener("DOMContentLoaded", () => {
             this.classList.add('hidden');
             const letter = document.getElementById('letter');
             
-            // Dim cake and banner so the letter stands out
             document.getElementById('cake').style.opacity = '0.3'; 
             document.getElementById('banner').style.opacity = '0.3'; 
             

@@ -13,15 +13,14 @@ body {
     background-image: url('../assets/images/paper.png');
     background-size: cover;
     background-position: center;
-    overflow: hidden; /* No scroll allowed */
+    overflow: hidden;
     height: 100vh;
-    height: 100dvh; /* Mobile viewport fix */
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Base Stage Utilities */
 .stage {
     position: absolute;
     inset: 0;
@@ -37,13 +36,11 @@ body {
     pointer-events: none;
 }
 
-/* Global Animations */
 @keyframes soft-float {
     0%, 100% { translate: 0 0px; }
     50% { translate: 0 -8px; }
 }
 
-/* Stage 1: Landing */
 #landing-stage h1 {
     font-weight: 400;
     font-style: italic;
@@ -70,7 +67,6 @@ body {
     color: var(--bg-color);
 }
 
-/* Stage 2: Memory Cards */
 #memory-title {
     font-size: 1.6rem;
     color: var(--text-color);
@@ -80,26 +76,30 @@ body {
 }
 
 #card-stack {
-    width: 320px;
-    height: 420px;
+    width: 360px;
+    height: 480px;
     position: relative;
+    margin-top: 2rem;
 }
 
 .card {
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
-    background: #fffdf9;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    background-image: url('../assets/images/card-bg.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.15));
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 30px;
+    padding: 50px;
     box-sizing: border-box;
     text-align: center;
     color: #5a4b42;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 1.5;
     cursor: grab;
     user-select: none;
@@ -112,10 +112,9 @@ body {
 .card.dragging {
     cursor: grabbing;
     transition: none; 
-    animation: none; /* Stops floating while user is dragging */
+    animation: none; 
 }
 
-/* Transition & Dim */
 #dim-overlay {
     position: fixed;
     inset: 0;
@@ -134,7 +133,7 @@ body {
     position: absolute;
     font-family: 'Pacifico', cursive;
     font-size: 2.5rem;
-    color: var(--text-color); /* Dark text for light background */
+    color: var(--text-color);
     z-index: 15;
     transition: opacity var(--fade-dur) ease;
     opacity: 0;
@@ -142,7 +141,6 @@ body {
     text-align: center;
 }
 
-/* Stage 3: Reveal Elements */
 #reveal-stage {
     z-index: 20;
 }
@@ -207,7 +205,7 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centers perfectly over cake */
+    transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.8s ease;
     cursor: pointer;
@@ -223,20 +221,24 @@ body {
 }
 
 #envelope {
-    width: 160px;
-    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.5));
-    animation: inviting-shake 2.5s infinite ease-in-out;
+    width: 280px;
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+    animation: inviting-shake 3s infinite ease-in-out;
+    cursor: pointer;
 }
 
 @keyframes inviting-shake {
-    0%, 100% { transform: rotate(-2deg) scale(1); }
-    50% { transform: rotate(2deg) scale(1.05); } 
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(3deg) scale(1.02); }
+    50% { transform: rotate(0deg) scale(1); }
+    75% { transform: rotate(-3deg) scale(1.02); }
+    100% { transform: rotate(0deg) scale(1); }
 }
 
 #letter {
     position: absolute;
     max-width: 90%;
-    width: 380px;
+    width: 500px;
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -248,22 +250,31 @@ body {
     transform: translateY(0);
     pointer-events: auto;
     z-index: 30;
+    animation: soft-float 5s ease-in-out infinite; 
 }
 
-/* Mobile Responsiveness */
 @media (max-width: 600px) {
     #card-stack {
-        width: 260px;
-        height: 350px;
+        width: 85vw;
+        height: 55vh;
+        max-width: 340px;
+        max-height: 460px;
     }
-    .banner-letter {
-        font-size: 1.3rem;
-        gap: 3px;
+    .card {
+        padding: 30px;
+        font-size: 1.2rem;
     }
     #cake {
-        width: 220px;
+        width: 240px; 
     }
     #envelope {
-        width: 130px;
+        width: 220px; 
+    }
+    #letter {
+        width: 90%; 
+    }
+    .banner-letter {
+        font-size: 1.4rem;
+        gap: 3px;
     }
 }
