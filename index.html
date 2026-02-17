@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <section id="landing-stage" class="stage">
         <h1>Happy Birthday</h1>
         <button id="start-btn">Start</button>
@@ -21,19 +22,41 @@
 
     <section id="memory-stage" class="stage hidden">
         <h2 id="memory-title">Little Things About You</h2>
+        
+        <img src="assets/images/butterflies.png" id="butterflies-decor" class="memory-decor" alt="">
+        <img src="assets/images/cat_flowers.png" id="cat-flowers-decor" class="memory-decor" alt="">
+        
         <div id="card-stack"></div>
     </section>
 
     <div id="dim-overlay"></div>
+    <img src="assets/images/papercut-leftbottom.jpg" id="papercut-decor" alt="">
+    
     <div id="transition-text" class="hidden">I have something for you.</div>
 
     <section id="reveal-stage" class="stage hidden">
         <img src="assets/images/cake.png" id="cake" alt="Birthday Cake">
         <div id="banner"></div>
+        
         <div id="envelope-container" class="hidden">
             <img src="assets/images/envelope.png" id="envelope" alt="Envelope">
         </div>
-        <img src="assets/images/letter.png" id="letter" class="hidden" alt="Letter">
+        
+        <div id="letter-wrapper" class="hidden">
+            <img src="assets/images/letter.png" id="letter-img" alt="Letter Paper">
+            
+            <img src="assets/images/roses.png" id="letter-roses" alt="Roses">
+            <img src="assets/images/cattopview.jpg" id="letter-cat" alt="Cat">
+            
+            <div id="letter-text-container">
+                <p>Happy Birthday!</p>
+                <br>
+                <p>You mean so much to me, and I wanted to create something special just for you. Every little moment we share is a memory I keep close to my heart.</p>
+                <p>May all your wishes come true today and always!</p>
+            </div>
+        </div>
+
+        <button id="replay-btn" class="hidden">Replay</button>
     </section>
 
     <script src="js/data.js"></script>
