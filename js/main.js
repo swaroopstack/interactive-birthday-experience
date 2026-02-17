@@ -39,13 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const baseTransform = `translateY(${translateY}px) rotate(${rotate}deg)`;
         card.style.transform = baseTransform;
         card.dataset.baseTransform = baseTransform; 
+        
         card.style.animationDelay = `${Math.random() * 2}s`;
         
         stack.appendChild(card);
         attachDragBehavior(card);
     });
 
-    // UPDATED DRAG LOGIC FOR MOBILE SUPPORT
     function attachDragBehavior(card) {
         let startX = 0, currentX = 0;
         let isDragging = false;
@@ -64,11 +64,10 @@ document.addEventListener("DOMContentLoaded", () => {
             card.style.transform = `${card.dataset.baseTransform} translateX(${currentX}px) rotate(${rotation}deg)`;
         });
 
-        const stopDrag = (e) => {
+        const endDrag = (e) => {
             if (!isDragging) return;
             isDragging = false;
             card.classList.remove('dragging');
-            card.releasePointerCapture(e.pointerId);
             
             if (Math.abs(currentX) > 100) {
                 const direction = currentX > 0 ? window.innerWidth : -window.innerWidth;
@@ -87,13 +86,17 @@ document.addEventListener("DOMContentLoaded", () => {
             currentX = 0;
         };
 
-        card.addEventListener('pointerup', stopDrag);
-        card.addEventListener('pointercancel', stopDrag); // Fixes dropped touches on mobile
+        card.addEventListener('pointerup', endDrag);
+        card.addEventListener('pointercancel', endDrag);
     }
 
     function triggerTransition() {
         const title = document.getElementById('memory-title');
         title.style.opacity = '0';
+        
+        // Hide the background memory decorators smoothly
+        document.getElementById('butterflies-decor').style.opacity = '0';
+        document.getElementById('cat-flowers-decor').style.opacity = '0';
         
         setTimeout(() => {
             const text = document.getElementById('transition-text');
@@ -109,8 +112,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function triggerReveal() {
         document.getElementById('memory-stage').classList.add('hidden');
+        
+        // Darken the room
         const overlay = document.getElementById('dim-overlay');
         overlay.classList.add('active');
+        
+        // Fade in the beautiful 24% papercut on the left perfectly in sync with the dimming!
+        const papercut = document.getElementById('papercut-decor');
+        papercut.classList.add('show');
 
         setTimeout(() => {
             const revealStage = document.getElementById('reveal-stage');
@@ -165,15 +174,31 @@ document.addEventListener("DOMContentLoaded", () => {
         
         setTimeout(() => {
             this.classList.add('hidden');
-            const letter = document.getElementById('letter');
+            
+            // Show the complete letter wrapper
+            const letterWrapper = document.getElementById('letter-wrapper');
             
             document.getElementById('cake').style.opacity = '0.3'; 
             document.getElementById('banner').style.opacity = '0.3'; 
             
-            letter.classList.remove('hidden');
+            letterWrapper.classList.remove('hidden');
             setTimeout(() => {
-                letter.classList.add('show');
+                letterWrapper.classList.add('show');
+                
+                // Exactly 3 seconds after the letter fades in, show Replay button
+                setTimeout(() => {
+                    const replayBtn = document.getElementById('replay-btn');
+                    replayBtn.classList.remove('hidden');
+                    // slight delay to allow display:block to register before opacity transition
+                    setTimeout(() => replayBtn.classList.add('show'), 50);
+                }, 3000);
+                
             }, 50);
         }, 800);
+    });
+    
+    // Completely resets the cinematic experience perfectly
+    document.getElementById('replay-btn').addEventListener('click', () => {
+        window.location.reload();
     });
 });
