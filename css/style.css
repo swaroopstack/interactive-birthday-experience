@@ -364,18 +364,18 @@ body {
     pointer-events: none;
 }
 
-/* Non-Overflowing Paragraph Container */
+/* Non-Overflowing Paragraph Container - FIXED ALIGNMENT */
 #letter-text-container {
     position: absolute;
-    top: 15%; 
-    bottom: 15%; 
-    left: 12%; 
-    right: 12%; 
+    /* TIGHTENED CONSTRAINTS to fit exactly in the white paper area */
+    top: 32%;
+    bottom: 24%;
+    left: 18%;
+    right: 18%;
     overflow-y: auto; 
-    font-size: 1.2rem;
+    font-size: 1.1rem; /* Slightly smaller text to fit better */
     color: var(--text-color);
     text-align: center;
-    padding: 10px;
     scrollbar-width: none; 
 }
 #letter-text-container::-webkit-scrollbar {
@@ -430,7 +430,9 @@ body {
     #letter-wrapper { width: 90%; }
     #letter-roses { width: 90px; top: -15px; left: -15px; }
     #letter-cat { width: 120px; bottom: -25px; right: -5px; }
-    #letter-text-container { font-size: 1rem; }
+    
+    /* Ensure mobile text fits too */
+    #letter-text-container { font-size: 1rem; top: 30%; bottom: 22%; left: 15%; right: 15%; }
     
     .banner-letter {
         font-size: 1.4rem;
