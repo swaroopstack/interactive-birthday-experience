@@ -3,8 +3,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const startBtn = document.getElementById('start-btn');
     const landingStage = document.getElementById('landing-stage');
     const memoryStage = document.getElementById('memory-stage');
+    const bgMusic = document.getElementById('bg-music');
     
     startBtn.addEventListener('click', () => {
+        // Start the music!
+        bgMusic.currentTime = 0; // Forces it to start at 0:00
+        bgMusic.play().catch(e => console.log("Audio play blocked by browser:", e));
+
         landingStage.classList.add('hidden');
         setTimeout(() => {
             memoryStage.classList.remove('hidden');
@@ -199,6 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Completely resets the cinematic experience perfectly
     document.getElementById('replay-btn').addEventListener('click', () => {
+        // This instantly resets everything, including the audio back to zero!
         window.location.reload();
     });
 });
