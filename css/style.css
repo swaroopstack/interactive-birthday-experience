@@ -102,7 +102,12 @@ body {
     font-size: 1.4rem;
     line-height: 1.5;
     cursor: grab;
+    
+    /* MOBILE DRAG FIXES ADDED HERE */
     user-select: none;
+    -webkit-user-select: none; /* For iOS Safari */
+    touch-action: none; /* Stops the browser from waiting for a scroll */
+    
     transform-origin: bottom center;
     transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     will-change: transform;
