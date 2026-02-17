@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const title = document.getElementById('memory-title');
         title.style.opacity = '0';
         
-        // Hide the background memory decorators smoothly
+        // Thanks to the CSS transition, setting opacity to 0 creates a beautiful smooth fade out!
         document.getElementById('butterflies-decor').style.opacity = '0';
         document.getElementById('cat-flowers-decor').style.opacity = '0';
         
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const overlay = document.getElementById('dim-overlay');
         overlay.classList.add('active');
         
-        // Fade in the beautiful 24% papercut on the left perfectly in sync with the dimming!
+        // Show the papercut safely under the dim overlay so it dims properly
         const papercut = document.getElementById('papercut-decor');
         papercut.classList.add('show');
 

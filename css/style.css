@@ -5,27 +5,37 @@
     --dim-dur: 1s;
 }
 
-/* DYNAMIC FLOATING BACKGROUND */
-@keyframes bgPan {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 100% 100%; }
-}
-
 body {
     margin: 0;
     padding: 0;
     font-family: 'Lora', serif;
     background-color: var(--bg-color);
-    background-image: url('../assets/images/paper.png');
-    /* Slightly scaled up to allow room for the floating drift */
-    background-size: 115% 115%; 
-    animation: bgPan 40s infinite alternate ease-in-out;
     overflow: hidden;
     height: 100vh;
     height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* DYNAMIC FLOATING BACKGROUND LAYER */
+#bg-layer {
+    position: fixed;
+    top: -5%;
+    left: -5%;
+    width: 110%; /* Larger than screen to allow panning */
+    height: 110%;
+    background-image: url('../assets/images/paper.png');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    animation: panBg 25s infinite alternate ease-in-out;
+    will-change: transform;
+}
+
+@keyframes panBg {
+    0% { transform: translate(0px, 0px); }
+    100% { transform: translate(3%, 3%); }
 }
 
 .stage {
@@ -103,13 +113,14 @@ body {
     position: absolute;
     pointer-events: none; /* Allows swiping over them */
     z-index: 1; /* Sits behind the cards */
+    transition: opacity 1.5s ease; /* FADES OUT SMOOTHLY */
 }
 
 #butterflies-decor {
-    left: 8%;
+    left: 3%;
     top: 50%;
     transform: translateY(-50%);
-    width: 220px;
+    width: 320px; /* MUCH BIGGER NOW */
     animation: soft-float 5s infinite alternate-reverse ease-in-out;
 }
 
@@ -189,11 +200,12 @@ body {
     bottom: 0;
     left: 0;
     width: 24vw; 
-    min-width: 180px; /* Safety net so it's not too tiny on phones */
+    min-width: 180px; 
     opacity: 0;
     pointer-events: none;
     transition: opacity 1.5s ease;
-    z-index: 15; /* Sits beautifully above the dim, but behind the reveal items */
+    /* Z-INDEX 5: Sits UNDER the overlay, so it dims exactly like the background! */
+    z-index: 5; 
 }
 
 #papercut-decor.show {
@@ -344,9 +356,9 @@ body {
 
 #letter-cat {
     position: absolute;
-    bottom: -25px;
-    right: 15px;
-    width: 100px; /* Cute size at bottom end */
+    bottom: -35px;
+    right: -10px;
+    width: 160px; /* INCREASED DECENT BIG SIZE */
     animation: soft-float 5.5s infinite alternate;
     z-index: 35;
     pointer-events: none;
@@ -355,17 +367,15 @@ body {
 /* Non-Overflowing Paragraph Container */
 #letter-text-container {
     position: absolute;
-    /* Pushes text safely inside the borders of the letter image */
     top: 15%; 
     bottom: 15%; 
     left: 12%; 
     right: 12%; 
-    overflow-y: auto; /* Adds neat scrolling if text is too long */
+    overflow-y: auto; 
     font-size: 1.2rem;
     color: var(--text-color);
     text-align: center;
     padding: 10px;
-    /* Hides the ugly scrollbar for a clean look */
     scrollbar-width: none; 
 }
 #letter-text-container::-webkit-scrollbar {
@@ -401,8 +411,7 @@ body {
     #landing-stage h1 { font-size: 3rem; }
     #memory-title { font-size: 2rem; }
     
-    /* Neatly hide/scale decor for mobile */
-    #butterflies-decor { width: 140px; left: 2%; opacity: 0.6; }
+    #butterflies-decor { width: 180px; left: -5%; opacity: 0.6; }
     #cat-flowers-decor { width: 160px; right: -5%; opacity: 0.6; }
     
     #card-stack {
@@ -420,7 +429,7 @@ body {
     
     #letter-wrapper { width: 90%; }
     #letter-roses { width: 90px; top: -15px; left: -15px; }
-    #letter-cat { width: 80px; bottom: -15px; right: 5px; }
+    #letter-cat { width: 120px; bottom: -25px; right: -5px; }
     #letter-text-container { font-size: 1rem; }
     
     .banner-letter {
