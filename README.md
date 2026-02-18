@@ -15,6 +15,11 @@ progresses through.
 - CSS (Animations)
 - Vanilla JavaScript
 
+## Screenshot:
+<img width="540" height="540" alt="image" src="https://github.com/user-attachments/assets/0df9c548-d104-405a-93c0-611595e6bfa0" />
+<!-- <br> -->
+<img width="540" height="540" alt="image" src="https://github.com/user-attachments/assets/da227096-af42-451f-812f-744c3bc7111a" />
+
 ## Status
 🚧 In development (Version 1)
 
